@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 router.post("/products/:productId/review", async(req,res)=>{
 
     const {productId} = req.params;
-    const {rating, text}= req.body;
+    const {rating, text}= req.body; 
     let owner="Anonymous";
     if(req.user){
         owner=req.user.username;

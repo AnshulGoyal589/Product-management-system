@@ -57,8 +57,8 @@ function sendWelcomeSMS(userPhoneNumber) {
     .create({
       body: 'Welcome to our e-commerce website!',
       from: '+12536557966',
-      to: "+91"+userPhoneNumber.toString()
-      // to: "+918168079094"
+      // to: "+91"+userPhoneNumber.toString()
+      to: "+918168079094"
     })
     .then(message => console.log('Welcome SMS sent:', message.sid))
     .catch(error => console.error('Error sending SMS:', error));
