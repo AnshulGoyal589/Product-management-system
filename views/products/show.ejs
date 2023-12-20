@@ -1,236 +1,147 @@
-<% layout('layout/boilerplate') -%>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="css/starability-all.min.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= product.title %></title>
     <style>
-        body{
-            background-color: black;
-            color:white;
-        }
-        #card{
-            border:2px solid white;
-            width:450px;
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
             display: flex;
-            flex-direction: column;
-            height: 580px;
-            align-items: center;
-            z-index: 1000;
-        }
-        #formdiv{
-            border:4px solid black;
-            width:750px;
-            height: fit-content;
-            text-align: center;
-        }  
-        #button{
-            background-color: green;
-            color:white;
-        }
-        #revRating{
-            /* border:2px solid black; */
-            /* background-color: #415a77; */
-            color:white;
-            height:50px;
-            
-        }
-        #ownerRevText{
-            /* border:2px solid black; */
-            /* background-color: #778da9; */
-            color:white;
-            height:fit-content;
-            margin-top: 10px;
-            font-size: 18px;
-
-        }
-        #reviewContainer{
-            border:2px solid gray;
-            padding:5px;
-            margin:5px;
-
-        }
-        img{
-            width:100%;
-            height:100%;
-        }
-        #img{
-            width:100%;
-            height:70%;
-            overflow: hidden;
-        }
-        img:hover{
-            transform: scale(1.1);
-            transition-duration: 0.7s;
-        }
-        
-        #main{
-            display: flex;
-            flex-direction: row;
             justify-content: center;
-            gap:100px;
-            padding-top:0 ;
-            z-index: 0;
-            overflow: hidden;
+            align-items: center;
+            min-height: 100vh;
         }
-        #delete{
-            /* border:2px solid white; */
-            text-align: center;
-            text-decoration: none;
-            color:white;
-            height: fit-content;
-            width: fit-content;
-            background-color: #0d1b2a;
-            margin-top:4px;
-            box-shadow: none;
-            border: none;
-            /* border:10px solid red; */
-        }
-        #update{
-            /* border:2px solid white; */
-            text-decoration: none;
-            text-align: center;
-            color:white;
-            margin-top:4px;
-        }
-        #addToCart{
-            /* border:2px solid white; */
-            text-decoration: none;
-            text-align: center;
-            color:white;
-            margin-top:4px;
 
-
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
-        #changes{
+
+        h1 {
+            text-align: center;
+            color: #4caf50;
+            margin-bottom: 20px;
+        }
+
+        .image-container {
             display: flex;
-            flex-direction: row;
-            gap:30px;
+            justify-content: space-between;
+            margin-bottom: 20px;
         }
-        #chanesForm{
-            width:fit-content;
-            height:fit-content;
+
+        .image-container img {
+            width: 350px;
+            height: 500px;
+            border-radius: 8px;
+            object-fit: cover;
         }
-        .star {
-        color: #ccc; /* Default star color */
-        font-size: 50px; /* Adjust the star size */
-        cursor: pointer;
+
+        .product-details {
+            width: 60%; /* Adjust the width as needed */
+            float: right;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            margin-bottom: 20px;
+        }
+
+        strong {
+            color: #4caf50;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        a {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #fff;
+            width: fit-content;
+            background-color: green; /* Blue background color */
+            border-radius: 8px;
+            transition: background-color 0.3s ease; /* Smooth transition on hover */
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: #2980b9; /* Darker blue on hover */
         }
     </style>
 </head>
+<body>
+    <div class="container">
+        <h1>Product has been added successfully!</h1>
+        <div style="display: flex; gap: 50px;">
+            <div class="image-container">
+                <img src="<%=url%>" alt="<%= product.title %> Image 1">
+            </div>
 
-<br><br>
-<div id="main">
-<div id="card">
-
-    <div id="img"><img src="<%=product.img%>" alt="image not available"></div>
-    <h2 style="margin-top:15px;"><%= product.name  %></h2>+
-    <h4>Price: <%= product.price  %>₹</h4>
-    <h5 style="margin-bottom: 19px;text-align: center;"><%= product.desc  %></h5>
-    <!-- <h5 style="color: green;">Average Rating: <%= product.avgRating%> &starf; </h5> -->
-    <div id="changes">
-        
-        <% if(currentUser){ %>    
-        <% if(currentUser.identity==='seller'){ %>    
-            <form action="/products/<%=product._id%>?_method=DELETE" method="post" id="changesForm">
-                <button  id="delete" ><i class="fa-solid fa-trash fa-2xl " style="color: #ed1707;width: fit-content;height:fit-content"></i><br><br>DELETE</button>
-            </form>
-        <% } %>
-        <% } %>
-        <% if(currentUser){ %>
-        <% if(currentUser.identity==='seller'){ %>
-           <a id="update" href="/products/<%=product._id%>/edit"><i class="fa-solid fa-pen fa-2xl" style="color: blue;"></i><br><br>UPDATE</a>
-        <% } %>
-        <% } %>
-        <% if(currentUser){ %>    
-        <% if(currentUser.identity==='buyer'){ %>    
-            <a id="addToCart" href="/products/<%=product._id%>/<%= currentUser._id%>/cart"><i class="fa-solid fa-cart-shopping fa-2xl" style="color: green;"></i><br><br>ADD</a>  
-        <% } %>
-        <% } %>
+            <div class="product-details">
+                <h2><%= product.title %></h2>
+                <p><strong>Description:</strong> <%= product.description %></p>
+                <p><strong>ID:</strong> <%= product.id %></p>
+                
+                <ul>
+                    <% product.variants.edges.forEach(variant => { %>
+                        <li>
+                            <strong>Variant ID:</strong> <%= variant.node.id %><br>
+                            <div style="height: 20px;"></div>
+                            <strong>Price:</strong> <%= variant.node.price %>$<br>
+                            <div style="height: 20px;"></div>
+                            <strong>Inventory Quantity:</strong> <%= Math.floor(Math.random() * 51) %>
+                            <div style="height: 20px;"></div>
+                            <img style="height: 100px; width: 200px;" src="<%=url2%>" alt="">
+                            <div style="height: 20px;"></div>
+                            <button onclick="downloadImage('<%=url2%>', 'downloaded-image.jpg')">Download Barcode</button>
+                            <a href="/" >Return to Dashboard</a>
+                        </li>
+                    <% }); %>
+                </ul>
+            </div>
+        </div>
     </div>
 
-</div>
-
- 
-
-<div id="formdiv" style="background-color: #0d1b2a;">
-    <form action="/products/<%=product._id%>/review" method="post">
-        
-        <fieldset>
-            <label for="rating" style="font-size: 30px;color:white">Feedback Rating: </label>
-            <!-- <input type="range" id="rating" name="rating" step="1" min="0" max="10"> -->
-            <br>
-            <span class="fa-solid fa-star star str" onclick="rate(1)" id="star1" onmouseover="addClass(0)" onmouseout="removeClass(0)"></span>
-            <span class="fa-solid fa-star star str" onclick="rate(2)" id="star2" onmouseover="addClass(1)" onmouseout="removeClass(1)"></span>
-            <span class="fa-solid fa-star star str" onclick="rate(3)" id="star3" onmouseover="addClass(2)" onmouseout="removeClass(2)"></span>
-            <span class="fa-solid fa-star star str" onclick="rate(4)" id="star4" onmouseover="addClass(3)" onmouseout="removeClass(3)"></span>
-            <span class="fa-solid fa-star star str" onclick="rate(5)" id="star5" onmouseover="addClass(4)" onmouseout="removeClass(4)"></span>
-            
-            <input id="hiddenInput" type="hidden"  name="rating">
-            <br>
-            <br>
-            <label for="review" style="font-size: 30px;color:white;">Comment please:  </label>
-            <br>
-            <textarea name="text" id="rating" cols="40" rows="5"></textarea>
-            <br>
-            <button id="button" style="z-index: 1001 !important;flex:none !important;;">SUBMIT</button>
-        </fieldset>
-    </form>
-    <br><br><br>
-    <h2 style="background-color: #1b263b;color:white;height: 70px;">Customer's Review</h2>
-    <% for(let review of product.review){ %>
-            <div id="reviewContainer">
-                    <div style="display: inline-block;right:100px;font-size: 28px;position: relative;bottom:10px;"><i style="margin-right: 10px;" class="fa-solid fa-user fa-xl"></i><%= review.owner %></div>
-              
-                <div id="revRating" style="display: inline-block;">
-                    
-                    <% for(let i=1 ; i<=5 ; i++){ %>
-                        <% if(i<=review.rating){ %>
-                            <span class="fa checked star" style="color:yellow">&#9733; </span>
-                        <% }else{ %>
-                            <span class="fa star">&#9733; </span>
-                        <% } %>
-                    <% } %>
-                </div>
-                <div id="ownerRevText"><%= review.text %></div>
-            </div>
-    <% } %>
-    
-</div>
-</div>
-<script>
-    function rate(stars){
-        for(let i=1 ; i<=stars ; i++){
-            let star=document.querySelector(`#star${i}`);
-            star.style.color="yellow";
+    <script>
+        function downloadImage(imageUrl, fileName) {
+            fetch(imageUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = fileName;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                });
         }
-        for(let i=stars+1 ; i<=5 ; i++){
-            let star=document.querySelector(`#star${i}`);
-            star.style.color="white";
-        }
-        let hiddenInput=document.querySelector("#hiddenInput");
-        hiddenInput.value=stars;
-        console.log(hiddenInput.value)
-
-        
-    }
-  function addClass(star) {
-    let stars=document.querySelectorAll(".str");
-    for(let i=0 ; i<=star ; i++){
-            stars[i].classList.add("fa-bounce");
-    }
-  }
-  function removeClass(star) {
-    let stars=document.querySelectorAll(".str");
-    for(let i=0 ; i<=star ; i++){
-            stars[i].classList.remove("fa-bounce");
-    }
-  }
-//   const button=document.querySelector("#button");
-//   button.addEventListener("mouseenter",(e)=>{
-//         const element=e.target;
-//         const translateX = -10; 
-//         const translateY = 0; 
-//         const currentX = element.getBoundingClientRect().left;
-//         const newX = (translateX+currentX);
-//         element.style.zIndex="10000";
-//         element.style.transform = `translateX(${newX}px)`;
-//   })
-</script>
+    </script>
+</body>
+</html>

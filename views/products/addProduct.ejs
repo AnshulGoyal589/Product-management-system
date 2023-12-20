@@ -4,25 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Product Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #productForm {
+            width: 650px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            display: inline-block; /* Adjusted */
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
 
-    <h2>Add Product</h2>
-    <form id="productForm">
-        <label for="title">Product Title:</label>
-        <input type="text" id="title" name="title" required><br>
+    <div id="productForm">
+        <h2>Add Product</h2>
+        <form>
+            <label for="title">Product Title:</label>
+            <input type="text" id="title" name="title" required>
 
-        <label for="description">Product Description:</label>
-        <textarea id="description" name="description" required></textarea><br>
+            <label for="description">Product Description:</label>
+            <textarea id="description" name="description" required></textarea>
 
-        <label for="price">Product Price:</label>
-        <input type="text" id="price" name="price" required><br>
+            <label for="price">Product Price:</label>
+            <input type="text" id="price" name="price" required>
 
-        <label for="inventoryQuantity">Inventory Quantity:</label>
-        <input type="text" id="inventoryQuantity" name="inventoryQuantity" required><br>
+            <label for="inventoryQuantity">Inventory Quantity:</label>
+            <input type="text" id="inventoryQuantity" name="inventoryQuantity" required>
 
-        <button type="button" onclick="submitForm()">Submit</button>
-    </form>
+            <label for="imageUrl">Image URL:</label>
+            <input type="text" id="imageUrl" name="imageUrl" required>
+
+            <button type="button" onclick="submitForm()">Submit</button>
+        </form>
+    </div>
 
     <script>
         function submitForm() {
@@ -30,12 +92,14 @@
             const description = document.getElementById("description").value;
             const price = document.getElementById("price").value;
             const inventoryQuantity = document.getElementById("inventoryQuantity").value;
+            const imageUrl = document.getElementById("imageUrl").value;
 
             const formData = {
                 title,
                 description,
                 price,
-                inventoryQuantity
+                inventoryQuantity,
+                imageUrl,
             };
 
             // Send data to the server using fetch
@@ -49,8 +113,8 @@
             .then(response => response.json())
             .then(data => {
                 console.log('Success:', data);
-                // Redirect to the products page
-                // window.location.href = '/fetchDataFromShopify';
+                alert('Product added successfully!');
+                window.location.href = `/show/${title}`;
             })
             .catch(error => {
                 console.error('Error:', error);
