@@ -1,10 +1,8 @@
 const express = require("express");
 const router =  express.Router();
-const Product = require("../models/product");
+// const Product = require("../models/product");
 const {isLoggedIn}=require("../middleware");
 
-
-const Review = require("../models/Review");
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 

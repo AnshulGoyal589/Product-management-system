@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products</title>
+</head>
+<body>
+
+    <h2>All Products</h2>
+
+    <ul>
+        <% products.forEach(product => { %>
+            <li>
+                <strong>Title:</strong> <%= product.title %><br>
+                <strong>Description:</strong> <%= product.description %><br>
+                <strong>Price:</strong> <%= product.variants.edges[0].node.price %><br>
+                <strong>Inventory Quantity:</strong> <%= product.variants.edges[0].node.inventoryQuantity %>
+            </li>
+        <% }); %>
+    </ul>
+
+</body>
+</html>
